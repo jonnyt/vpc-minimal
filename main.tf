@@ -142,6 +142,12 @@ resource "aws_route_table_association" "pub-net-2" {
   depends_on     = ["aws_route_table.pub-nets"]
 }
 
+data "aws_route" "pub_igw_route" {
+  route_table_id         = "${aws_route_table.pub-nets.id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = "${aws_internet_gateway.igw.id}"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # IGW
 # ---------------------------------------------------------------------------------------------------------------------
